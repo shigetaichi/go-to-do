@@ -16,9 +16,8 @@ const Edit: FC = () => {
 
     const handleUpdate = (id : number | string): void => {
         const data = {
-            ID: id,
-            Todo: todo,
-            Emergency: emergency,
+            id: id,
+            emergency: emergency,
         }
         axios.post(`/update`, data, headers).then(res => {
             console.log(res)

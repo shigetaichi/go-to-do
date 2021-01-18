@@ -1,11 +1,11 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -77,38 +77,73 @@ func main() {
 		})
 	})
 	engine.POST("/update", func(c *gin.Context) {
+
+		var todo Todo
+
+		c.Bind(&todo)
+
+		fmt.Println(todo)
+
 		//id := c.Param("id")
 		//ui,_ := strconv.ParseUint(id, 10, 32)
 		//todoItem := c.PostForm("todo")
 		//emergency := c.PostForm("emergency")
 		//emergencyUint64, _ := strconv.ParseUint(emergency, 10, 64)
-		jsonStr := c.Request.FormValue("todo")
-		var todo Todo
-		json.Unmarshal([]byte(jsonStr), &todo)
-		c.JSON(201, todo)
-		db.First(&todo, id)
-		todo.Todo = todo.Todo
-		todo.Emergency = todo.Emergency
-		db.Save(&todo)
+
+		//jsonStr := c.Request.FormValue("todo")
+		//var todo Todo
+		//json.Unmarshal([]byte(jsonStr), &todo)
+		//c.JSON(201, todo)
+		//db.First(&todo, id)
+		//todo.Todo = todo.Todo
+		//todo.Emergency = todo.Emergency
+		//db.Save(&todo)
+
 		//c.Redirect(http.StatusMovedPermanently, "/")
 	})
 	engine.POST("/add", func(c *gin.Context) {
-		todo := c.PostForm("todo")
-		emergency := c.PostForm("emergency")
-		emergencyUint64, _ := strconv.ParseUint(emergency, 10, 64)
-		result := db.Create(&Todo{Todo: todo, Emergency: emergencyUint64})
-		if err := result.Error; err != nil {
-			fmt.Println("ERROR occurred")
+		swap := func(a *int, b *int) {
+			tmp := *a
+			*a = *b
+			*b = tmp
 		}
+
+		a := 1
+		b := 2
+
+		fmt.Println(a, b)
+
+		swap(&a, &b)
+
+		fmt.Println(a, b)
+
+		todo := Todo{}
+
+		err := c.Bind(&todo)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		db.Create(&todo)
+
+		c.JSON(201, "")
+
+		//todo := c.PostForm("todo")
+		//emergency := c.PostForm("emergency")
+		//emergencyUint64, _ := strconv.ParseUint(emergency, 10, 64)
+		//result := db.Create(&Todo{Todo: todo, Emergency: emergencyUint64})
+		//if err := result.Error; err != nil {
+		//	fmt.Println("ERROR occurred")
+		//}
 		//c.JSON(http.StatusOK, gin.H{
 		//	"todo": todo,
 		//	"emergency": emergency,
 		//})
-		c.Redirect(http.StatusMovedPermanently, "/")
+		//c.Redirect(http.StatusMovedPermanently, "/")
 	})
 	engine.POST("/delete/:id", func(c *gin.Context) {
 		id := c.Param("id")
-		ui,_ := strconv.ParseUint(id, 10, 32)
+		ui, _ := strconv.ParseUint(id, 10, 32)
 		var todo = Todo{
 			Model: gorm.Model{
 				ID: uint(ui),

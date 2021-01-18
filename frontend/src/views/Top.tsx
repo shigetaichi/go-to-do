@@ -13,20 +13,33 @@ interface ListItem {
 
 const Top: FC = () => {
     const [lists, setLists] = useState<Array<ListItem>>([])
+    const [newTodo, setNewTodo] = useState<string>('')
+
+    const handleAdd = () => {
+        axios.post('/add', {todo: newTodo, emergency: 1}).then(getTodos)
+    }
+
+    const getTodos = () => {
+        axios.get("http://localhost:3001").then(res => setLists(res.data.message))
+    }
+
     useEffect(() => {
-        axios.get("http://localhost:3001").then(res => {
-            console.log(res.data.message)
-            setLists(res.data.message)
-        })
+        getTodos()
     }, [])
+
     return (
-        <ul>
-            {lists && lists.map((list, i) => (
-                <React.Fragment key={i}>
-                    <ListItem id={list.ID} item={list.todo} emergency={list.emergency}/>
-                </React.Fragment>
-            ))}
-        </ul>
+        <div>
+            <input type="text" value={newTodo} onChange={(e) => setNewTodo(e.target.value)}/>
+            <button onClick={handleAdd}>追加</button>
+
+            <ul>
+                {lists && lists.map((list, i) => (
+                    <React.Fragment key={i}>
+                        <ListItem id={list.ID} item={list.todo} emergency={list.emergency}/>
+                    </React.Fragment>
+                ))}
+            </ul>
+        </div>
     )
 }
 export default Top
