@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<header>
+    TO DO APP in React and Golang!
+</header>
+<h1>To do</h1>
+<div class="input-todo">
+    <form action="/add" method="POST">
+        <input type="text" name="todo" value="" required placeholder="Add to do">
+        <select name="emergency" id="emergency">
+            <option value="0">普通</option>
+            <option value="1">きつい</option>
+            <option value="2">激ヤバ</option>
+        </select>
+        <button type="submit">ADD</button>
+    </form>
+</div>
+<div class="list">
+    <ul>
+        {{range $i, $v := .message}}
+        <li style="display: flex"><p>{{.Todo}}</p>
+            <a href="/edit/{{.ID}}">編集</a>
+            <form action="/delete" method="POST">
+                <input type="hidden" name="id" value="{{.ID}}">
+                <button type="submit">削除</button>
+            </form>
+        </li>
+        {{end}}
+<!--        <span>{{.message.Id}}</span>-->
+<!--        {{range $v := .}}-->
+<!--        <li>{{$v}}</li>-->
+<!--        {{end}}-->
+    </ul>
+</div>
+</body>
+</html>

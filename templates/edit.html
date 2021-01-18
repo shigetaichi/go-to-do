@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>edit {{.data.ID}}</h1>
+
+    <div class="editor">
+        <form action="/update" method="POST">
+            <input type="hidden" name="id" value="{{.data.ID}}">
+            <input type="text" name="todo" value="{{.data.Todo}}" required placeholder="Add to do">
+            <select name="emergency" id="emergency">
+                <option value="0">普通</option>
+                <option value="1">きつい</option>
+                <option value="2">激ヤバ</option>
+            </select>
+            <button type="submit">ADD</button>
+        </form>
+    </div>
+</body>
+</html>
