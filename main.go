@@ -77,12 +77,17 @@ func main() {
 		})
 	})
 	engine.POST("/update", func(c *gin.Context) {
-
-		var todo Todo
-
-		c.Bind(&todo)
-
-		fmt.Println(todo)
+		todo := Todo{}
+		err := c.Bind(&todo)
+		if err != nil {
+			log.Println(err)
+			log.Fatal("ERROR at update")
+		}
+		fmt.Println(todo.ID)
+		fmt.Println(todo.Todo)
+		fmt.Println(todo.Emergency)
+		fmt.Println(Todo{Todo: todo.Todo, Emergency: todo.Emergency})
+		db.Model(&todo).Updates(Todo{Todo: todo.Todo, Emergency: todo.Emergency})
 
 		//id := c.Param("id")
 		//ui,_ := strconv.ParseUint(id, 10, 32)
@@ -118,7 +123,6 @@ func main() {
 		fmt.Println(a, b)
 
 		todo := Todo{}
-
 		err := c.Bind(&todo)
 		if err != nil {
 			log.Fatalln(err)
