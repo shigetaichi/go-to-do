@@ -32,7 +32,7 @@ const Top: FC = () => {
             <input type="text" value={newTodo} onChange={(e) => setNewTodo(e.target.value)}/>
             <button onClick={handleAdd}>追加</button>
 
-            <ul>
+            <ul className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500">
                 {lists && lists.map((list, i) => (
                     <React.Fragment key={i}>
                         <ListItem id={list.ID} item={list.todo} emergency={list.emergency}/>

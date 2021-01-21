@@ -4,7 +4,7 @@ import axios from "axios";
 
 const headers = {
         headers: {
-            'content-type': 'multipart/form-data',
+            'content-type': 'application/json',
         }
     }
 
@@ -16,12 +16,13 @@ const Edit: FC = () => {
 
     const handleUpdate = (id : number | string): void => {
         const data = {
-            id: id,
-            emergency: emergency,
+            id: Number(id),
+            todo: todo,
+            emergency: Number(emergency),
         }
         axios.post(`/update`, data, headers).then(res => {
             console.log(res)
-            // history.push("/")
+            history.push("/")
         })
     }
 

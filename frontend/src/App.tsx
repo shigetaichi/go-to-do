@@ -10,6 +10,7 @@ import Top from "./views/Top";
 
 axios.defaults.baseURL = 'http://localhost:3001';
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'OPTIONS, GET, POST, PUT, PATCH, DELETE';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 function App() {
