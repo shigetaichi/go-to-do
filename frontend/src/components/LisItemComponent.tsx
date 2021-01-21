@@ -3,17 +3,13 @@ import { Link } from "react-router-dom"
 import axios from "axios";
 import {useHistory} from "react-router";
 
-interface Props {
-    id: number;
-    item: string;
-    emergency: number;
-}
+import {ListItem} from "../drag";
 
 const listStyle = {
     'display': 'flex'
 }
 
-const ListItem: FC<Props> = (props) => {
+const LisItemComponent: FC<ListItem> = (props) => {
     const history = useHistory();
     const handleDelete = async (id: number) => {
         const res = await axios.post(`/delete/${id}`);
@@ -23,20 +19,20 @@ const ListItem: FC<Props> = (props) => {
 
     return (
         <>
-            <li style={listStyle} className="p-4">
-                <p>{props.id}　</p>
-                <p>{props.item}　</p>
+            <li style={listStyle} className="p-4 bgc-white">
+                <p>{props.ID}　</p>
+                <p>{props.todo}　</p>
                 {props.emergency === 0 ?
                     <p>普通</p> :
                     props.emergency === 1 ?
                         <p>やばい</p> :
                         <p>激ヤバ</p>
                 }
-                <p><Link to={`/edit/${props.id}`}>edit</Link></p>
-                <p onClick={() => handleDelete(props.id)}>delete</p>
+                <p><Link to={`/edit/${props.ID}`}>edit</Link></p>
+                <p onClick={() => handleDelete(props.ID)}>delete</p>
             </li>
         </>
     )
 }
 
-export default ListItem
+export default LisItemComponent

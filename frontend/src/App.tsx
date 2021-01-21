@@ -17,24 +17,12 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                {/*<header className="App-header">*/}
-                {/*    <p>*/}
-                {/*        Edit <code>src/App.tsx</code> and save to reload.*/}
-                {/*    </p>*/}
-                {/*    <a*/}
-                {/*        className="App-link"*/}
-                {/*        href="https://reactjs.org"*/}
-                {/*        target="_blank"*/}
-                {/*        rel="noopener noreferrer"*/}
-                {/*    >*/}
-                {/*        Learn React*/}
-                {/*    </a>*/}
-                {/*</header>*/}
-            </div>
+                <h1 className="font-bold text-6xl text-black text-opacity-0 inline-block bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text">GO REACT TO DO</h1>
             <Switch>
                 <Route exact path={"/"} component={Top}/>
                 <Route path={"/edit/:id"} component={Edit}/>
             </Switch>
+            </div>
         </BrowserRouter>
     );
 }
