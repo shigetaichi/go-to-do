@@ -23,7 +23,7 @@ const ListItem: FC<Props> = (props) => {
 
     return (
         <>
-            <li style={listStyle} className="p-4">
+            <li style={listStyle} className="p-4 rounded bg-white">
                 <p>{props.id}　</p>
                 <p>{props.item}　</p>
                 {props.emergency === 0 ?
